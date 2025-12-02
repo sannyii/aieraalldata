@@ -79,11 +79,6 @@ export async function GET(request: Request) {
     if (month) {
       const monthDir = path.resolve(DATA_DIR, month);
       
-      // 调试信息
-      console.log('数据目录:', DATA_DIR);
-      console.log('月份目录:', monthDir);
-      console.log('月份目录是否存在:', fs.existsSync(monthDir));
-      
       if (!fs.existsSync(monthDir)) {
         return NextResponse.json({ 
           error: `月份文件夹不存在: ${monthDir}` 
@@ -113,11 +108,6 @@ export async function GET(request: Request) {
       // 使用 path.resolve 确保路径正确，处理中文文件名
       const filePath = path.resolve(monthDir, excelFile);
       
-      // 调试信息
-      console.log('Excel 文件名:', excelFile);
-      console.log('完整文件路径:', filePath);
-      console.log('文件是否存在:', fs.existsSync(filePath));
-      
       // 检查文件是否存在
       if (!fs.existsSync(filePath)) {
         return NextResponse.json({ 
@@ -145,15 +135,6 @@ export async function GET(request: Request) {
       } catch (readError) {
         const errorMsg = readError instanceof Error ? readError.message : '未知错误';
         const errorCode = (readError as any)?.code;
-        
-        // 记录详细错误信息用于调试
-        console.error('读取 Excel 文件详细错误:', {
-          filePath,
-          excelFile,
-          errorMsg,
-          errorCode,
-          fileExists: fs.existsSync(filePath)
-        });
         
         // 如果是文件访问错误，提供更友好的提示
         if (errorMsg.includes('Cannot access file') || 
@@ -255,14 +236,12 @@ export async function GET(request: Request) {
         .sort()
         .reverse(); // 最新的在前
     } catch (readDirError) {
-      console.error('读取目录失败:', readDirError);
       // 即使读取目录失败，也返回空数组，不抛出错误
       return NextResponse.json({ months: [] });
     }
 
     return NextResponse.json({ months });
   } catch (error) {
-    console.error('API Error:', error);
     return NextResponse.json(
       { error: '服务器错误', details: error instanceof Error ? error.message : '未知错误' },
       { status: 500 }

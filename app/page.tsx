@@ -74,7 +74,6 @@ export default function Home() {
           setAvailableMonths([]);
         }
       } catch (error) {
-        console.error('加载月份列表失败:', error);
         setError(`加载月份列表失败: ${error instanceof Error ? error.message : '网络错误'}`);
         // 即使失败也保持 UI 可见
         setAvailableMonths([]);
@@ -150,14 +149,12 @@ export default function Home() {
             }
           } catch (prevError) {
             // 上个月数据加载失败不影响当前月数据显示
-            console.warn('加载上个月数据失败:', prevError);
             setPreviousData([]);
           }
         } else {
           setPreviousData([]);
         }
       } catch (error) {
-        console.error('加载数据失败:', error);
         setError(`加载数据失败: ${error instanceof Error ? error.message : '未知错误'}`);
         // 即使出错也保持UI显示
         setCurrentData([]);
@@ -189,11 +186,11 @@ export default function Home() {
       
       // 使用 html2canvas 捕获表格
       const canvas = await html2canvas(tableRef.current, {
-        backgroundColor: '#ffffff',
+        background: '#ffffff',
         scale: 2, // 提高图片质量
         logging: false,
         useCORS: true,
-      });
+      } as any);
 
       // 创建新的 canvas 来添加标题
       const finalCanvas = document.createElement('canvas');
@@ -237,7 +234,6 @@ export default function Home() {
         URL.revokeObjectURL(url);
       }, 'image/png');
     } catch (error) {
-      console.error('导出图片失败:', error);
       setError(`导出图片失败: ${error instanceof Error ? error.message : '未知错误'}`);
     } finally {
       setExporting(false);
