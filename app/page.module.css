@@ -1,0 +1,529 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+
+/* 打印样式 */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 15mm;
+  }
+  
+  .container {
+    height: auto;
+    width: 100%;
+    background: white;
+    overflow: visible;
+  }
+  
+  .toolbar {
+    display: none;
+  }
+  
+  .errorAlert {
+    display: none;
+  }
+  
+  .tableContainer {
+    padding: 0;
+    overflow: visible;
+    margin-top: 0;
+  }
+  
+  .table {
+    box-shadow: none;
+    border: 1px solid #e8e8e8;
+    page-break-inside: auto;
+    width: 100%;
+    max-width: 100%;
+    font-size: 11px;
+  }
+  
+  .tableContainer {
+    align-items: stretch;
+  }
+  
+  .table thead {
+    position: static;
+    background: #fafafa;
+  }
+  
+  .table tbody tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  
+  .table tbody tr:hover {
+    background: white;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background: #fafafa;
+  }
+  
+  .table th {
+    padding: 8px 4px;
+    font-size: 11px;
+    border: 1px solid #e8e8e8;
+  }
+  
+  .table td {
+    padding: 6px 4px;
+    font-size: 11px;
+    border: 1px solid #e8e8e8;
+  }
+  
+  .value {
+    font-size: 11px;
+    min-height: 16px;
+  }
+  
+  .change {
+    transform: scale(0.85);
+    font-size: 10px;
+    padding: 1px 5px;
+  }
+  
+  .accountName {
+    font-size: 11px;
+  }
+  
+  .dataCell {
+    min-height: 30px;
+  }
+  
+  .valueWrapper {
+    gap: 3px;
+  }
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.errorAlert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: #fff1f0;
+  border-left: 4px solid #ff4d4f;
+  margin: 0 16px;
+  margin-top: 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.errorText {
+  color: #cf1322;
+  font-size: 14px;
+}
+
+.errorClose {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #cf1322;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.errorClose:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+}
+
+.errorValue,
+.errorIncrement {
+  color: #ff4d4f;
+  font-size: 10px;
+  padding: 2px 4px;
+  background: #fff1f0;
+  border-radius: 3px;
+  border: 1px solid #ffccc7;
+}
+
+.errorIncrement {
+  margin-top: 4px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.uploadButton {
+  padding: 8px 16px;
+  background: #1890ff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.uploadButton:hover {
+  background: #40a9ff;
+}
+
+.monthSelector {
+  padding: 8px 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  background: white;
+  min-width: 150px;
+}
+
+.monthSelector:focus {
+  outline: none;
+  border-color: #1890ff;
+}
+
+.exportButton {
+  padding: 8px 16px;
+  background: #52c41a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+
+.exportButton:hover:not(:disabled) {
+  background: #73d13d;
+}
+
+.exportButton:disabled {
+  background: #95de64;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.tableContainer {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 0;
+  margin-top: 8px;
+}
+
+.tableWrapper {
+  display: inline-block;
+  background: white;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #999;
+  gap: 12px;
+  padding: 40px 20px;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f0f0f0;
+  border-top-color: #1890ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #999;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.table {
+  width: auto;
+  max-width: 680px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  font-size: 16px;
+  table-layout: fixed;
+  border: 1px solid #e8e8e8;
+}
+
+.table thead {
+  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.table th {
+  padding: 14px 8px;
+  text-align: center;
+  font-weight: 600;
+  color: #212529;
+  border-bottom: 2px solid #dee2e6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  vertical-align: middle;
+  letter-spacing: 0.2px;
+  background: #f8f9fa;
+}
+
+.rankCell {
+  text-align: center;
+}
+
+.table th.rankCell {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.table tbody tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.table tbody tr:nth-child(even):hover {
+  background: #e9ecef;
+}
+
+.accountName {
+  font-weight: 600;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.accountNameCell {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+  padding-right: 8px !important;
+  text-align: center !important;
+}
+
+.rankCell {
+  text-align: center;
+  color: #666;
+  vertical-align: middle;
+}
+
+.rankCell .value {
+  text-align: center;
+}
+
+.dataCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  vertical-align: middle;
+}
+
+.valueWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.value {
+  font-weight: 600;
+  color: #1a1a1a;
+  white-space: nowrap;
+  font-size: 16px;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+}
+
+.change {
+  font-size: 14px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  display: inline-flex;
+  width: fit-content;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-width: 1.5px;
+  border-style: solid;
+  position: relative;
+  max-width: calc(100% - 4px);
+  box-sizing: border-box;
+  transform: scale(0.88);
+  transform-origin: center center;
+  margin-left: 0;
+  margin-top: -1px;
+}
+
+.increase {
+  background: #fff1f0;
+  color: #cf1322;
+  border-color: #ffccc7;
+}
+
+.decrease {
+  background: #f6ffed;
+  color: #389e0d;
+  border-color: #b7eb8f;
+}
+
+.increaseValue {
+  color: #cf1322;
+  font-weight: 500;
+}
+
+.decreaseValue {
+  color: #389e0d;
+  font-weight: 500;
+}
+
+/* 响应式设计 */
+@media (max-width: 1920px) {
+  .table {
+    font-size: 15px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px 6px;
+  }
+  
+  .value {
+    font-size: 15px;
+  }
+  
+  .change {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .table {
+    font-size: 14px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 6px 4px;
+  }
+  
+  .value {
+    font-size: 14px;
+  }
+  
+  .change {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .toolbar {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .table {
+    font-size: 12px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 6px 3px;
+  }
+  
+  .value {
+    font-size: 12px;
+  }
+  
+  .change {
+    font-size: 11px;
+  }
+}
+
+/* 确保表格宽度适合A4打印 */
+.table {
+  min-width: 600px;
+  max-width: 680px;
+}
+
+
