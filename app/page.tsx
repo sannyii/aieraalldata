@@ -292,8 +292,8 @@ export default function Home() {
             <tr>
               <th className={styles.accountNameCell}>账号名称</th>
               <th>发文数</th>
-              <th>总阅读数</th>
-              <th>头条阅读</th>
+              <th>总阅读数（万）</th>
+              <th>头条阅读（万）</th>
               <th>10万+</th>
               <th>平均阅读</th>
               <th>总在看数</th>
