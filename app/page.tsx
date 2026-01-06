@@ -244,7 +244,10 @@ export default function Home() {
     <div className={styles.container}>
       {/* 顶部工具栏 */}
       <div className={styles.toolbar}>
+        <div className={styles.titleSection}>
         <div className={styles.title}>竞家数据统计看板</div>
+          <a href="/thressvs" className={styles.yearlyLink}>全年统计 →</a>
+        </div>
         <div className={styles.controls}>
           {availableMonths.length > 0 && (
             <select

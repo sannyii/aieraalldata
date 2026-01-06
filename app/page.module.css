@@ -237,10 +237,33 @@
   margin-top: 4px;
 }
 
+.titleSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .title {
   font-size: 20px;
   font-weight: 600;
   color: #333;
+}
+
+.yearlyLink {
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.yearlyLink:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .controls {

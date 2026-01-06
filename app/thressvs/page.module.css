@@ -1,0 +1,396 @@
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(120, 100, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(255, 100, 150, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(100, 200, 255, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background: rgba(15, 12, 41, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  position: relative;
+}
+
+.titleSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.backLink {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: #fff;
+}
+
+.divider {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 14px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(120, 100, 255, 0.5);
+}
+
+.yearBadge {
+  padding: 8px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.errorAlert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: rgba(255, 100, 100, 0.15);
+  backdrop-filter: blur(10px);
+  border-left: 4px solid #ff6b6b;
+  margin: 16px 32px;
+  border-radius: 8px;
+  position: relative;
+  z-index: 5;
+}
+
+.errorText {
+  color: #ff6b6b;
+  font-size: 14px;
+}
+
+.errorClose {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #ff6b6b;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 24px 32px;
+  padding-bottom: 48px;
+  position: relative;
+  z-index: 1;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  color: rgba(255, 255, 255, 0.7);
+  gap: 16px;
+  font-size: 16px;
+}
+
+.loadingSpinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tablesGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tableCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cardIcon {
+  font-size: 24px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table thead {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.table th {
+  padding: 12px 16px;
+  text-align: center;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.table th:first-child {
+  text-align: left;
+  padding-left: 24px;
+}
+
+.table th:nth-child(2) {
+  background: rgba(102, 126, 234, 0.15);
+  color: #a5b4fc;
+}
+
+.table td {
+  padding: 14px 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.table td:first-child {
+  text-align: left;
+  padding-left: 24px;
+}
+
+.table tbody tr {
+  transition: background 0.2s;
+}
+
+.table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.accountName {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* 三家账号的颜色区分 */
+.row0 .accountName {
+  color: #f472b6; /* 新智元 - 粉色 */
+}
+
+.row1 .accountName {
+  color: #60a5fa; /* 机器之心 - 蓝色 */
+}
+
+.row2 .accountName {
+  color: #34d399; /* 量子位 - 绿色 */
+}
+
+.totalCell {
+  background: rgba(102, 126, 234, 0.08);
+  font-weight: 700;
+  font-size: 15px;
+  color: #a5b4fc !important;
+}
+
+.maxValue {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.2) 0%, rgba(245, 158, 11, 0.1) 100%) !important;
+  color: #fbbf24 !important;
+  position: relative;
+}
+
+.maxValue::after {
+  content: '👑';
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  font-size: 12px;
+}
+
+/* 汇总卡片 */
+.summaryCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.summaryItem {
+  padding: 24px;
+  background: rgba(15, 12, 41, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.summary0 {
+  border-left: 3px solid #f472b6;
+}
+
+.summary1 {
+  border-left: 3px solid #60a5fa;
+}
+
+.summary2 {
+  border-left: 3px solid #34d399;
+}
+
+.summaryName {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.summary0 .summaryName {
+  color: #f472b6;
+}
+
+.summary1 .summaryName {
+  color: #60a5fa;
+}
+
+.summary2 .summaryName {
+  color: #34d399;
+}
+
+.summaryStats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statLabel {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+}
+
+.statValue {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.highlight {
+  color: #fbbf24 !important;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .table {
+    font-size: 12px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 16px;
+  }
+  
+  .mainContent {
+    padding: 16px;
+  }
+  
+  .tableCard {
+    overflow-x: auto;
+  }
+  
+  .table {
+    min-width: 600px;
+  }
+}
+
